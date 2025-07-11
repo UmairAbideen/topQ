@@ -1,0 +1,7 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/topqkcat/public_html
+    - /bin/cp -r app bootstrap config database public resources routes storage artisan composer.json composer.lock server.php $DEPLOYPATH
+    - /bin/cp -r vendor $DEPLOYPATH/vendor
+    - /bin/cp .env $DEPLOYPATH/.env
