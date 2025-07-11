@@ -2,24 +2,24 @@
 <html lang="en">
 
 <head>
-    @include('manager.Layout.common-head')
+    @include('manager.layout.common-head')
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">
 
-    @include('manager.Layout.sidebar')
+    @include('manager.layout.sidebar')
 
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
 
-        @include('manager.Layout.header')
+        @include('manager.layout.header')
 
         @yield('main-content')
 
-        @include('manager.Layout.footer')
+        @include('manager.layout.footer')
 
     </main>
 
-    @include('manager.Layout.common-end')
+    @include('manager.layout.common-end')
 </body>
 
 </html>

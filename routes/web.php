@@ -2,14 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\qa\QaController;
-use App\Http\Controllers\auth\LoginController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\qa\mrm\MrmController;
 use App\Http\Controllers\qa\pdf\PdfController;
-use App\Http\Controllers\auth\LogoutController;
+use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\qa\mrm\MailController;
 use App\Http\Controllers\qa\capa\CapaController;
 use App\Http\Controllers\qa\risk\RiskController;
-use App\Http\Controllers\auth\RegisterController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\qa\excel\ExcelController;
 use App\Http\Controllers\qa\users\UsersController;
 use App\Http\Controllers\manager\ManagerController;
@@ -64,15 +64,18 @@ use App\Http\Controllers\manager\document_control\ManagerDocumentationController
 use App\Http\Controllers\officer\document_control\OfficerDocumentationController;
 use App\Http\Controllers\director\document_control\DirectorDocumentationController;
 
+
 //=============login======================================================================================
 
 Route::get('/', [LoginController::class, 'index'])->name('index');
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 
+
 //=============registration===============================================================================
 
-Route::get('/register', [RegisterController::class, 'view'])->name('register')->middleware('redirect.authenticated');
-Route::post('/register', [RegisterController::class, 'register'])->name('register')->middleware('redirect.authenticated');
+Route::get('/register', [RegisterController::class, 'view'])->name('register')->middleware('register');
+Route::post('/registration', [RegisterController::class, 'register'])->name('register.store')->middleware('register.store');
+
 
 // //=============logout=====================================================================================
 

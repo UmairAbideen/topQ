@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    @include('qa.Layout.common-head')
+    @include('qa.layout.common-head')
 </head>
 
 <body class="bg-gray-200">
@@ -129,7 +129,7 @@
         </div>
     </main>
 
-    @include('qa.Layout.common-end')
+    @include('qa.layout.common-end')
 
 </body>
 
