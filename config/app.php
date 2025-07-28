@@ -183,6 +183,9 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        App\Providers\DomPdfFixServiceProvider::class,
+
+
 
         /*
          * Package Service Providers...
