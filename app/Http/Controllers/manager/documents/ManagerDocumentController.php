@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class ManagerDocumentController extends Controller
 {
@@ -58,23 +59,30 @@ class ManagerDocumentController extends Controller
         ]);
 
         $file = $request->file('pdf_file');
-        $filename = $request->doc_name . '.' . $file->getClientOriginalExtension();
+        $fileName = Str::slug($request->doc_name) . '.' . $file->getClientOriginalExtension();
         $path = '/assets/pdf/sop/ts/';
-        $file->move(public_path($path), $filename);
-        $filePath = $path . $filename;
+        $absolutePath = $_SERVER['DOCUMENT_ROOT'] . $path;
+
+        if (!file_exists($absolutePath)) {
+            mkdir($absolutePath, 0755, true);
+        }
+
+        $file->move($absolutePath, $fileName);
+        $filePath = $path . $fileName;
 
         TsSOP::create([
-            'department' => Auth::user()->department,
-            'doc_no' => $request->doc_no,
-            'doc_name' => $request->doc_name,
-            'eff_date' => $request->eff_date,
-            'revision_no' => $request->revision_no,
-            'pdf_file' => $filePath,
-            'created_at' => now(),
+            'department'   => Auth::user()->department,
+            'doc_no'       => $request->doc_no,
+            'doc_name'     => $request->doc_name,
+            'eff_date'     => $request->eff_date,
+            'revision_no'  => $request->revision_no,
+            'pdf_file'     => $filePath,
+            'created_at'   => now(),
         ]);
 
         return back()->with('status', 'New SOP has been uploaded.');
     }
+
 
     public function tssopedit($id)
     {
@@ -93,33 +101,30 @@ class ManagerDocumentController extends Controller
         ]);
 
         $sop = TsSOP::findOrFail($id);
+        $path = '/assets/pdf/sop/ts/';
+        $absolutePath = $_SERVER['DOCUMENT_ROOT'] . $path;
+
+        if (!file_exists($absolutePath)) {
+            mkdir($absolutePath, 0755, true);
+        }
 
         if ($request->hasFile('pdf_file')) {
-            if (File::exists(public_path($sop->pdf_file))) {
-                File::delete(public_path($sop->pdf_file));
+            if (File::exists($_SERVER['DOCUMENT_ROOT'] . '/' . $sop->pdf_file)) {
+                File::delete($_SERVER['DOCUMENT_ROOT'] . '/' . $sop->pdf_file);
             }
 
             $file = $request->file('pdf_file');
-            $filename = $request->doc_name;
-            $path = 'assets/pdf/sop/ts/';
-            $file->move(public_path($path), $filename);
-            $filePath = $path . $filename;
+            $fileName = Str::slug($request->doc_name) . '.' . $file->getClientOriginalExtension();
+            $file->move($absolutePath, $fileName);
+            $sop->pdf_file = $path . $fileName;
+        } elseif ($sop->doc_name !== $request->doc_name) {
+            $oldPath = $_SERVER['DOCUMENT_ROOT'] . '/' . $sop->pdf_file;
+            $newFileName = Str::slug($request->doc_name) . '.' . pathinfo($sop->pdf_file, PATHINFO_EXTENSION);
+            $newPath = $absolutePath . $newFileName;
 
-            $sop->pdf_file = $filePath;
-        } else {
-            // If no new file is uploaded, check if the document name has changed
-            if ($sop->doc_name !== $request->doc_name) {
-                // Determine the old and new file paths
-                $oldFilePath = public_path($sop->pdf_file);
-                $newFileName = $request->doc_name;
-                $newFilePath = 'assets/pdf/sop/ts/' . $newFileName;
-
-                // Rename the existing file if it exists
-                if (File::exists($oldFilePath)) {
-                    File::move($oldFilePath, public_path($newFilePath));
-                    // Update the file path in the database
-                    $sop->pdf_file = $newFilePath;
-                }
+            if (File::exists($oldPath)) {
+                File::move($oldPath, $newPath);
+                $sop->pdf_file = $path . $newFileName;
             }
         }
 
@@ -132,6 +137,7 @@ class ManagerDocumentController extends Controller
 
         return back()->with('status', 'SOP updated successfully.');
     }
+
 
     public function tssopdelete($id)
     {
@@ -179,23 +185,30 @@ class ManagerDocumentController extends Controller
         ]);
 
         $file = $request->file('pdf_file');
-        $filename = $request->doc_name . '.' . $file->getClientOriginalExtension();
+        $fileName = Str::slug($request->doc_name) . '.' . $file->getClientOriginalExtension();
         $path = '/assets/pdf/sop/sc/';
-        $file->move(public_path($path), $filename);
-        $filePath = $path . $filename;
+        $absolutePath = $_SERVER['DOCUMENT_ROOT'] . $path;
+
+        if (!file_exists($absolutePath)) {
+            mkdir($absolutePath, 0755, true);
+        }
+
+        $file->move($absolutePath, $fileName);
+        $filePath = $path . $fileName;
 
         ScSOP::create([
-            'department' => Auth::user()->department,
-            'doc_no' => $request->doc_no,
-            'doc_name' => $request->doc_name,
-            'eff_date' => $request->eff_date,
-            'revision_no' => $request->revision_no,
-            'pdf_file' => $filePath,
-            'created_at' => now(),
+            'department'   => Auth::user()->department,
+            'doc_no'       => $request->doc_no,
+            'doc_name'     => $request->doc_name,
+            'eff_date'     => $request->eff_date,
+            'revision_no'  => $request->revision_no,
+            'pdf_file'     => $filePath,
+            'created_at'   => now(),
         ]);
 
         return back()->with('status', 'New SOP has been uploaded.');
     }
+
 
     public function scsopedit($id)
     {
@@ -214,33 +227,30 @@ class ManagerDocumentController extends Controller
         ]);
 
         $sop = ScSOP::findOrFail($id);
+        $path = '/assets/pdf/sop/sc/';
+        $absolutePath = $_SERVER['DOCUMENT_ROOT'] . $path;
+
+        if (!file_exists($absolutePath)) {
+            mkdir($absolutePath, 0755, true);
+        }
 
         if ($request->hasFile('pdf_file')) {
-            if (File::exists(public_path($sop->pdf_file))) {
-                File::delete(public_path($sop->pdf_file));
+            if (File::exists($_SERVER['DOCUMENT_ROOT'] . '/' . $sop->pdf_file)) {
+                File::delete($_SERVER['DOCUMENT_ROOT'] . '/' . $sop->pdf_file);
             }
 
             $file = $request->file('pdf_file');
-            $filename = $request->doc_name;
-            $path = 'assets/pdf/sop/sc/';
-            $file->move(public_path($path), $filename);
-            $filePath = $path . $filename;
+            $fileName = Str::slug($request->doc_name) . '.' . $file->getClientOriginalExtension();
+            $file->move($absolutePath, $fileName);
+            $sop->pdf_file = $path . $fileName;
+        } elseif ($sop->doc_name !== $request->doc_name) {
+            $oldFilePath = $_SERVER['DOCUMENT_ROOT'] . '/' . $sop->pdf_file;
+            $newFileName = Str::slug($request->doc_name) . '.' . pathinfo($sop->pdf_file, PATHINFO_EXTENSION);
+            $newFilePath = $absolutePath . $newFileName;
 
-            $sop->pdf_file = $filePath;
-        } else {
-            // If no new file is uploaded, check if the document name has changed
-            if ($sop->doc_name !== $request->doc_name) {
-                // Determine the old and new file paths
-                $oldFilePath = public_path($sop->pdf_file);
-                $newFileName = $request->doc_name;
-                $newFilePath = 'assets/pdf/sop/sc/' . $newFileName;
-
-                // Rename the existing file if it exists
-                if (File::exists($oldFilePath)) {
-                    File::move($oldFilePath, public_path($newFilePath));
-                    // Update the file path in the database
-                    $sop->pdf_file = $newFilePath;
-                }
+            if (File::exists($oldFilePath)) {
+                File::move($oldFilePath, $newFilePath);
+                $sop->pdf_file = $path . $newFileName;
             }
         }
 
@@ -253,6 +263,7 @@ class ManagerDocumentController extends Controller
 
         return back()->with('status', 'SOP updated successfully.');
     }
+
 
     public function scsopdelete($id)
     {
