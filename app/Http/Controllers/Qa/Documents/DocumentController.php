@@ -42,10 +42,13 @@ class DocumentController extends Controller
             'pdf_file' => 'required|file|mimes:pdf|max:5000',
         ]);
 
+
         $file = $request->file('pdf_file');
         $path = '/assets/pdf/policy/';
-        $file->move(public_path($path), $request->doc_name);
-        $filePath = $path . $request->doc_name;
+        $filename = $request->doc_name . '.' . $file->getClientOriginalExtension();
+        $file->move(public_path($path), $filename);
+        $filePath = $path . $filename;
+
 
 
         Policy::create([
