@@ -10,14 +10,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class DocumentController extends Controller
 {
-
-
-
-
-
 
     // =========================== Policy ========================================
     public function policyview()
@@ -32,7 +28,6 @@ class DocumentController extends Controller
     }
 
     public function policycreate(Request $request)
-
     {
         $request->validate([
             'doc_no' => 'required|string|max:255',
@@ -42,28 +37,30 @@ class DocumentController extends Controller
             'pdf_file' => 'required|file|mimes:pdf|max:5000',
         ]);
 
-
+        // Prepare sanitized filename
         $file = $request->file('pdf_file');
-        $path = '/assets/pdf/policy/';
-        $filename = $request->doc_name . '.' . $file->getClientOriginalExtension();
-        $file->move(public_path($path), $filename);
-        $filePath = $path . $filename;
+        $originalName = pathinfo($request->doc_name, PATHINFO_FILENAME);
+        $fileName = Str::slug($originalName) . '.' . $file->getClientOriginalExtension();
 
+        // Save the file
+        $path = 'assets/pdf/policy/';
+        $file->move(public_path($path), $fileName);
+        $filePath = $path . $fileName;
 
-
+        // Create policy record
         Policy::create([
-            'department' => Auth::user()->department,
-            'doc_no' => $request->doc_no,
-            'doc_name' => $request->doc_name,
-            'eff_date' => $request->eff_date,
-            'revision_no' => $request->revision_no,
-            'pdf_file' => $filePath,
-
-            'created_at' => now(),
+            'department'   => Auth::user()->department,
+            'doc_no'       => $request->doc_no,
+            'doc_name'     => $request->doc_name,
+            'eff_date'     => $request->eff_date,
+            'revision_no'  => $request->revision_no,
+            'pdf_file'     => $filePath,
+            'created_at'   => now(),
         ]);
 
         return back()->with('status', 'New Document has been Uploaded.');
     }
+
 
     public function policyedit($id)
     {
