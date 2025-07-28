@@ -27,6 +27,7 @@ class DocumentController extends Controller
         return view('qa.documents.policy.add');
     }
 
+
     public function policycreate(Request $request)
     {
         $request->validate([
@@ -37,17 +38,21 @@ class DocumentController extends Controller
             'pdf_file' => 'required|file|mimes:pdf|max:5000',
         ]);
 
-        // Prepare sanitized filename
         $file = $request->file('pdf_file');
         $originalName = pathinfo($request->doc_name, PATHINFO_FILENAME);
         $fileName = Str::slug($originalName) . '.' . $file->getClientOriginalExtension();
 
-        // Save the file
-        $path = 'assets/pdf/policy/';
-        $file->move(public_path($path), $fileName);
+        // Safe for both local and live (Namecheap)
+        $path = '/assets/pdf/policy/';
+        $absolutePath = $_SERVER['DOCUMENT_ROOT'] . $path;
+
+        if (!file_exists($absolutePath)) {
+            mkdir($absolutePath, 0755, true);
+        }
+
+        $file->move($absolutePath, $fileName);
         $filePath = $path . $fileName;
 
-        // Create policy record
         Policy::create([
             'department'   => Auth::user()->department,
             'doc_no'       => $request->doc_no,
