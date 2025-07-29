@@ -74,14 +74,29 @@ class DemoMail extends Mailable
      * This method is used in Laravel < 9 or when you're not using the envelope/content structure.
      * It builds and returns the complete email, including subject, view, and attachments.
      */
+   
+   
+    // public function build()
+    // {
+    //     return $this->view($this->mailData['view']) // Load the Blade view for email content
+    //         ->subject($this->mailData['subject'])  // Set email subject
+    //         ->attachData(                          // Attach a file in memory
+    //             $this->mailData['pdf']->output(),  // PDF binary data generated dynamically
+    //             $this->mailData['fileName'],       // Filename of the attached PDF
+    //             ['mime' => 'application/pdf']      // Define MIME type
+    //         );
+    // }
+
+
     public function build()
     {
-        return $this->view($this->mailData['view']) // Load the Blade view for email content
-            ->subject($this->mailData['subject'])  // Set email subject
-            ->attachData(                          // Attach a file in memory
-                $this->mailData['pdf']->output(),  // PDF binary data generated dynamically
-                $this->mailData['fileName'],       // Filename of the attached PDF
-                ['mime' => 'application/pdf']      // Define MIME type
+        return $this->from('muhammad.umair@medzntech.com', config('app.name')) // explicitly set sender
+            ->view($this->mailData['view'])
+            ->subject($this->mailData['subject'])
+            ->attachData(
+                $this->mailData['pdf']->output(),
+                $this->mailData['fileName'],
+                ['mime' => 'application/pdf']
             );
     }
 }
