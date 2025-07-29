@@ -8,7 +8,7 @@
 .env
 .env.backup
 .env.production
-public
+/public
 Homestead.json
 Homestead.yaml
 auth.json
