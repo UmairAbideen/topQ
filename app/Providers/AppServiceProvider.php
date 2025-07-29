@@ -15,11 +15,10 @@ class AppServiceProvider extends ServiceProvider
     {
         if (App::environment('production')) {
             $this->app->bind('path.public', function () {
-                return realpath(base_path('../../public_html'));
+                return realpath(base_path('../../public_html/public'));
             });
         }
     }
-
 
 
     /**
