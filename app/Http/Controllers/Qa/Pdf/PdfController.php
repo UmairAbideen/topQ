@@ -33,6 +33,8 @@ class PdfController extends Controller
     {
         $ro = Complaint::find($id);
         $row = Complaint::where('id', $ro->id)->get();
+        dd(public_path());
+
 
         $pdf = Pdf::loadView('qa.complaint.pdf', compact('row'));
 
