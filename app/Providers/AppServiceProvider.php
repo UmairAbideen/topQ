@@ -26,10 +26,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if (App::environment('production')) {
-            $this->app->bind('path.public', function () {
-                return realpath(base_path('../../public_html/public'));
-            });
-        }
+        // if (App::environment('production')) {
+        //     $this->app->bind('path.public', function () {
+        //         return realpath(base_path('../../public_html/public'));
+        //     });
+        // }
     }
 }
