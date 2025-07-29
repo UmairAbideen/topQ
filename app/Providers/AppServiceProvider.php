@@ -11,7 +11,14 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Register any application services.
      */
-    public function register(): void {}
+    public function register(): void
+    {
+        if (App::environment('production')) {
+            $this->app->bind('path.public', function () {
+                return realpath(base_path('../../public_html/public'));
+            });
+        }
+    }
 
     /**
      * Bootstrap any application services.
