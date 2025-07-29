@@ -52,4 +52,8 @@ $app->singleton(
 |
 */
 
+
+// Cutom line to resolve public path issue on live server ....
+require_once __DIR__ . '/helpers.php';
+
 return $app;
