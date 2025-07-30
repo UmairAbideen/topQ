@@ -28,7 +28,7 @@ use App\Http\Controllers\manager\pdf\ManagerPdfController;
 use App\Http\Controllers\officer\pdf\OfficerPdfController;
 use App\Http\Controllers\Qa\Complaint\ComplaintController;
 use App\Http\Controllers\Qa\Deviation\DeviationController;
-use App\Http\Controllers\Qa\recall\RecallClosureController;
+use App\Http\Controllers\Qa\Recall\RecallClosureController;
 use App\Http\Controllers\director\mrm\DirectorMrmController;
 use App\Http\Controllers\director\pdf\DirectorPdfController;
 use App\Http\Controllers\manager\capa\ManagerCapaController;
