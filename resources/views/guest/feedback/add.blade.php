@@ -16,8 +16,9 @@
     <div class="container-fluid pt-5 pb-4 px-3">
 
         <div class="d-flex justify-content-center mb-5">
-            <img src="/assets/img/logo-4.png" class="w-35" alt="main_logo">
+            <img src="/assets/img/logo-4.png" class="img-fluid w-75 w-md-50 w-lg-35" alt="main_logo">
         </div>
+
 
         <div class="row">
             <div class="col-12">
@@ -271,7 +272,8 @@
                                             type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour"
                                             aria-expanded="true">
 
-                                            <h5 class="text-white text-capitalize ps-3">Dry Eye & Ocular Health Feedback</h5>
+                                            <h5 class="text-white text-capitalize ps-3">Dry Eye & Ocular Health Feedback
+                                            </h5>
                                             <span class="material-icons ms-2 mb-1 rotate-icon">chevron_right</span>
                                         </button>
                                     </h2>
