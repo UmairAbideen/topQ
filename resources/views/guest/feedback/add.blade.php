@@ -24,10 +24,10 @@
                 <div class="card my-4 mx-2">
                     <div class="card-header p-0 position-relative mt-n4 mx-3 my-0 z-index-2">
                         <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                            <h5 class="text-white text-capitalize ps-3">Customer Feedback Form</h5>
+                            <h4 class="text-white text-capitalize ps-3 text-center">Customer Feedback Form</h4>
                         </div>
 
-                        <form class='px-3 pt-5' action="{{ route('guest.feedback.create') }}" method="post">
+                        <form class="px-3 pt-5" action="{{ route('guest.feedback.create') }}" method="post">
                             @csrf
 
                             @if (session('status'))
@@ -39,11 +39,11 @@
                                 </div>
                             @endif
 
+                            <p class="small ms-1 pb-2"><b>Please Note: Fields with <span class="text-danger">*</span>
+                                    are mandatory to fill.</b></p>
 
+                            {{-- User Details (Always Open) --}}
                             <div class="row">
-                                <p class="small ms-1 pb-2"><b>Please Note: Fields with <span class="text-danger">*</span>
-                                        are mandatory to fill.</b></p>
-
                                 <div class="col-md-6 px-3">
                                     <div class="input-group input-group-static mb-4">
                                         <label>Name <span class="text-danger">*</span></label>
@@ -84,186 +84,266 @@
                                         @enderror
                                     </div>
                                 </div>
+                            </div>
 
+                            {{-- Accordion for Feedback Sections --}}
+                            <div class="accordion mt-4" id="feedbackAccordion">
 
                                 {{-- Instrumentation --}}
-                                <h5 class="text-center text-muted pt-5 pb-2">Instrumentation Feedback</h5>
-                                <div class="col-md-12 pb-0">
-                                    <p class="small ps-1">Please tick the below options to the best of your experience</p>
-                                </div>
+                                <div class="accordion-item mb-2">
+                                    <h2 class="accordion-header" id="headingOne">
+                                        <button
+                                            class="accordion-button bg-gradient-dark shadow-dark text-white d-flex justify-content-between align-items-center
+                                            py-2 m-0"
+                                            type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                                            aria-expanded="true">
 
-                                @php
-                                    $feedbackSections = [
-                                        'insp' => 'Product Quality',
-                                        'inse' => 'Market Competitive Price',
-                                        'inso' => 'Overall Services',
-                                        'insr' => 'Response to Complaints',
-                                    ];
+                                            <h5 class="text-white text-capitalize ps-3">Instrumentation
+                                                Feedback</h5>
+                                            <span class="material-icons ms-2 mb-1 rotate-icon">chevron_right</span>
+                                        </button>
+                                    </h2>
 
-                                    $options = ['Excellent', 'Good', 'Average', 'Low', 'Poor'];
-                                @endphp
+                                    <div id="collapseOne" class="accordion-collapse collapse show"
+                                        data-bs-parent="#feedbackAccordion">
+                                        <div class="accordion-body">
 
-                                @foreach ($feedbackSections as $name => $label)
-                                    <div class="col-md-12 px-3 pt-3">
-                                        <p class="small"><strong>{{ $label }}</strong></p>
+                                            @php
+                                                $feedbackSections = [
+                                                    'insp' => 'Product Quality',
+                                                    'inse' => 'Market Competitive Price',
+                                                    'inso' => 'Overall Services',
+                                                    'insr' => 'Response to Complaints',
+                                                ];
+                                                $options = ['Excellent', 'Good', 'Average', 'Low', 'Poor'];
+                                            @endphp
 
-                                        <div class="col-md-12 px-1 py-0 my-0 d-flex justify-content-between">
-                                            @foreach ($options as $option)
-                                                <div class="form-check px-0">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="{{ $name }}" value="{{ $option }}">
-                                                    <label class="custom-control-label">{{ $option }}</label>
+                                            @foreach ($feedbackSections as $name => $label)
+                                                <div class="px-2 pt-3 w-100">
+                                                    <p class="small"><strong>{{ $label }}</strong></p>
+
+                                                    {{-- ✅ Use flex instead of fixed col-md-2 --}}
+                                                    <div class="d-flex justify-content-between flex-wrap">
+                                                        @foreach ($options as $option)
+                                                            <div class="form-check me-2">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="{{ $name }}"
+                                                                    value="{{ $option }}">
+                                                                <label class="form-check-label">{{ $option }}</label>
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
                                                 </div>
                                             @endforeach
+
+                                            <div class="px-3 py-3">
+                                                <div class="input-group input-group-static mb-4">
+                                                    <label><strong>Remarks (if any)</strong></label>
+                                                    <textarea name="remarksins" rows="2" class="form-control"></textarea>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
-                                @endforeach
-
-                                <div class="col-md-12 px-3 py-3">
-                                    <div class="input-group input-group-static mb-4">
-                                        <label><strong>Remarks (if any)</strong></label>
-                                        <textarea name="remarksins" rows="1" cols="50" class="form-control"></textarea>
-                                    </div>
                                 </div>
 
 
-                                {{-- Technical Service Feedback --}}
-                                <h5 class="text-center text-muted pt-5 pb-2">Technical Service Feedback</h5>
-                                <div class="col-md-12 pb-0">
-                                    <p class="small ps-1">Please tick the below options to the best of your experience</p>
-                                </div>
 
-                                {{-- Technical Service Feedback Sections --}}
-                                @php
-                                    $technicalServiceSections = [
-                                        'tsc' => 'Response to Complaint',
-                                        'tsat' => 'Call Attended in Scheduled Time',
-                                        'tse' => 'Market Competitive Price',
-                                        'tsp' => 'Overall Performance',
-                                    ];
-                                    $options = ['Excellent', 'Good', 'Average', 'Low', 'Poor'];
-                                @endphp
+                                {{-- Technical Service --}}
+                                <div class="accordion-item mb-2">
+                                    <h2 class="accordion-header" id="headingTwo">
+                                        <button
+                                            class="accordion-button bg-gradient-primary shadow-primary text-white d-flex justify-content-between align-items-center py-2 m-0"
+                                            type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                            aria-expanded="true">
 
-                                @foreach ($technicalServiceSections as $name => $label)
-                                    <div class="col-md-12 px-3 pt-3">
-                                        <p class="small"><strong>{{ $label }}</strong></p>
-                                        <div class="col-md-12 px-1 py-0 my-0 d-flex justify-content-between">
-                                            @foreach ($options as $option)
-                                                <div class="form-check px-0">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="{{ $name }}" value="{{ $option }}"
-                                                        id="customRadio{{ $loop->parent->iteration }}_{{ $loop->iteration }}">
-                                                    <label class="custom-control-label"
-                                                        for="customRadio{{ $loop->parent->iteration }}_{{ $loop->iteration }}">{{ $option }}</label>
+                                            <h5 class="text-white text-capitalize ps-3">Technical Service Feedback</h5>
+                                            <span class="material-icons ms-2 mb-1 rotate-icon">chevron_right</span>
+                                        </button>
+                                    </h2>
+
+                                    <div id="collapseTwo" class="accordion-collapse collapse"
+                                        data-bs-parent="#feedbackAccordion">
+                                        <div class="accordion-body">
+
+                                            @php
+                                                $technicalServiceSections = [
+                                                    'tsc' => 'Response to Complaint',
+                                                    'tsat' => 'Call Attended in Scheduled Time',
+                                                    'tse' => 'Market Competitive Price',
+                                                    'tsp' => 'Overall Performance',
+                                                ];
+                                                $options = ['Excellent', 'Good', 'Average', 'Low', 'Poor'];
+                                            @endphp
+
+                                            @foreach ($technicalServiceSections as $name => $label)
+                                                <div class="px-2 pt-3 w-100">
+                                                    <p class="small"><strong>{{ $label }}</strong></p>
+
+                                                    <div class="d-flex justify-content-between flex-wrap">
+                                                        @foreach ($options as $option)
+                                                            <div class="form-check me-2">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="{{ $name }}"
+                                                                    value="{{ $option }}">
+                                                                <label
+                                                                    class="form-check-label">{{ $option }}</label>
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
                                                 </div>
                                             @endforeach
-                                        </div>
-                                    </div>
-                                @endforeach
 
-                                {{-- Remarks Section --}}
-                                <div class="col-md-12 px-3 py-3">
-                                    <div class="input-group input-group-static mb-4">
-                                        <label><strong>Remarks (if any)</strong></label>
-                                        <textarea name="remarksts" rows="1" cols="50" class="form-control"></textarea>
+                                            <div class="px-3 py-3">
+                                                <div class="input-group input-group-static mb-4">
+                                                    <label><strong>Remarks (if any)</strong></label>
+                                                    <textarea name="remarksts" rows="2" class="form-control"></textarea>
+                                                </div>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
 
 
                                 {{-- IOLs --}}
-                                <h5 class="text-center text-muted pt-5 pb-2">Intraocular Lens Feedback</h5>
-                                <div class="col-md-12 pb-0">
-                                    <p class="small ps-1">Please tick the below options to the best of your experience</p>
-                                </div>
+                                <div class="accordion-item mb-2">
+                                    <h2 class="accordion-header" id="headingThree">
+                                        <button
+                                            class="accordion-button bg-gradient-dark shadow-dark text-white d-flex justify-content-between align-items-center py-2 m-0"
+                                            type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                            aria-expanded="true">
 
-                                @php
-                                    $iolFeedbackSections = [
-                                        'iolp' => 'Product Quality',
-                                        'iole' => 'Market Competitive Price',
-                                        'iolo' => 'Overall Services',
-                                        'iolr' => 'Response to Complaints',
-                                    ];
+                                            <h5 class="text-white text-capitalize ps-3">Intraocular Lens Feedback</h5>
+                                            <span class="material-icons ms-2 mb-1 rotate-icon">chevron_right</span>
+                                        </button>
+                                    </h2>
 
-                                    $iolOptions = ['Excellent', 'Good', 'Average', 'Low', 'Poor'];
-                                @endphp
+                                    <div id="collapseThree" class="accordion-collapse collapse"
+                                        data-bs-parent="#feedbackAccordion">
+                                        <div class="accordion-body">
 
-                                @foreach ($iolFeedbackSections as $name => $label)
-                                    <div class="col-md-12 px-3 pt-3">
-                                        <p class="small"><strong>{{ $label }}</strong></p>
+                                            @php
+                                                $iolFeedbackSections = [
+                                                    'iolp' => 'Product Quality',
+                                                    'iole' => 'Market Competitive Price',
+                                                    'iolo' => 'Overall Services',
+                                                    'iolr' => 'Response to Complaints',
+                                                ];
+                                                $options = ['Excellent', 'Good', 'Average', 'Low', 'Poor'];
+                                            @endphp
 
-                                        <div class="col-md-12 px-1 py-0 my-0 d-flex justify-content-between">
-                                            @foreach ($iolOptions as $option)
-                                                <div class="form-check px-0">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="{{ $name }}" value="{{ $option }}">
-                                                    <label class="custom-control-label">{{ $option }}</label>
+                                            @foreach ($iolFeedbackSections as $name => $label)
+                                                <div class="px-2 pt-3 w-100">
+                                                    <p class="small"><strong>{{ $label }}</strong></p>
+
+                                                    <div class="d-flex justify-content-between flex-wrap">
+                                                        @foreach ($options as $option)
+                                                            <div class="form-check me-2">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="{{ $name }}"
+                                                                    value="{{ $option }}">
+                                                                <label
+                                                                    class="form-check-label">{{ $option }}</label>
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
                                                 </div>
                                             @endforeach
-                                        </div>
-                                    </div>
-                                @endforeach
 
-                                <div class="col-md-12 px-3 py-3">
-                                    <div class="input-group input-group-static mb-4">
-                                        <label><strong>Remarks (if any)</strong></label>
-                                        <textarea name="remarksiol" rows="1" cols="50" class="form-control"></textarea>
+                                            <div class="px-3 py-3">
+                                                <div class="input-group input-group-static mb-4">
+                                                    <label><strong>Remarks (if any)</strong></label>
+                                                    <textarea name="remarksiol" rows="2" class="form-control"></textarea>
+                                                </div>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
 
 
                                 {{-- Dry Eye --}}
-                                <h5 class="text-center text-muted pt-5 pb-2">Dry Eye Feedback</h5>
-                                <div class="col-md-12 pb-0">
-                                    <p class="small ps-1">Please tick the below options to the best of your experience</p>
-                                </div>
+                                <div class="accordion-item mb-2">
+                                    <h2 class="accordion-header" id="headingFour">
+                                        <button
+                                            class="accordion-button bg-gradient-primary shadow-primary text-white d-flex justify-content-between align-items-center py-2 m-0"
+                                            type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour"
+                                            aria-expanded="true">
 
-                                {{-- Dry Eye Feedback Sections --}}
-                                @php
-                                    $dryEyeFeedbackSections = [
-                                        'dep' => 'Product Quality',
-                                        'dee' => 'Market Competitive Price',
-                                        'deo' => 'Overall Services',
-                                        'der' => 'Response to Complaints',
-                                    ];
-                                    $options = ['Excellent', 'Good', 'Average', 'Low', 'Poor'];
-                                @endphp
+                                            <h5 class="text-white text-capitalize ps-3">Dry Eye & Ocular Health Feedback</h5>
+                                            <span class="material-icons ms-2 mb-1 rotate-icon">chevron_right</span>
+                                        </button>
+                                    </h2>
 
-                                @foreach ($dryEyeFeedbackSections as $name => $label)
-                                    <div class="col-md-12 px-3 pt-3">
-                                        <p class="small"><strong>{{ $label }}</strong></p>
-                                        <div class="col-md-12 px-1 py-0 my-0 d-flex justify-content-between">
-                                            @foreach ($options as $option)
-                                                <div class="form-check px-0">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="{{ $name }}" value="{{ $option }}"
-                                                        id="customRadio{{ $loop->parent->iteration }}_{{ $loop->iteration }}">
-                                                    <label class="custom-control-label"
-                                                        for="customRadio{{ $loop->parent->iteration }}_{{ $loop->iteration }}">{{ $option }}</label>
+                                    <div id="collapseFour" class="accordion-collapse collapse"
+                                        data-bs-parent="#feedbackAccordion">
+                                        <div class="accordion-body">
+
+                                            @php
+                                                $dryEyeFeedbackSections = [
+                                                    'dep' => 'Product Quality',
+                                                    'dee' => 'Market Competitive Price',
+                                                    'deo' => 'Overall Services',
+                                                    'der' => 'Response to Complaints',
+                                                ];
+                                                $options = ['Excellent', 'Good', 'Average', 'Low', 'Poor'];
+                                            @endphp
+
+                                            @foreach ($dryEyeFeedbackSections as $name => $label)
+                                                <div class="px-2 pt-3 w-100">
+                                                    <p class="small"><strong>{{ $label }}</strong></p>
+
+                                                    <div class="d-flex justify-content-between flex-wrap">
+                                                        @foreach ($options as $option)
+                                                            <div class="form-check me-2">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="{{ $name }}"
+                                                                    value="{{ $option }}">
+                                                                <label
+                                                                    class="form-check-label">{{ $option }}</label>
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
                                                 </div>
                                             @endforeach
+
+                                            <div class="px-3 py-3">
+                                                <div class="input-group input-group-static mb-4">
+                                                    <label><strong>Remarks (if any)</strong></label>
+                                                    <textarea name="remarksde" rows="2" class="form-control"></textarea>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
-                                @endforeach
-
-                                {{-- Remarks Section --}}
-                                <div class="col-md-12 px-3 py-3">
-                                    <div class="input-group input-group-static mb-4">
-                                        <label><strong>Remarks (if any)</strong></label>
-                                        <textarea name="remarksde" rows="1" cols="50" class="form-control"></textarea>
-                                    </div>
                                 </div>
 
+                            </div> {{-- end accordion --}}
 
-                                <div class="mt-3">
-                                    <button type="submit" class="btn bg-gradient-success">Submit</button>
-                                </div>
+                            <div class="mt-4">
+                                <button type="submit" class="btn bg-gradient-success">Submit</button>
                             </div>
-
-
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        document.querySelectorAll('.accordion-button').forEach(btn => {
+            let icon = btn.querySelector('.material-icons');
+
+            btn.addEventListener('click', () => {
+                setTimeout(() => {
+                    if (btn.classList.contains('collapsed')) {
+                        icon.textContent = 'chevron_right'; // collapsed
+                    } else {
+                        icon.textContent = 'expand_more'; // expanded (down arrow)
+                    }
+                }, 150); // wait for Bootstrap toggle
+            });
+        });
+    </script>
 @endsection
