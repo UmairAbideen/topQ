@@ -104,7 +104,7 @@
                                         </button>
                                     </h2>
 
-                                    <div id="collapseOne" class="accordion-collapse collapse show"
+                                    <div id="collapseOne" class="accordion-collapse collapse"
                                         data-bs-parent="#feedbackAccordion">
                                         <div class="accordion-body">
 
