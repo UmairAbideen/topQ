@@ -23,28 +23,41 @@
                         </div>
                     </div>
 
-                    <div class="d-flex ms-2 pt-2">
-                        <div class="p-2 pe-4 pt-4">
-                            <a href="{{ route('qa.users.export.excel') }}" class="btn bg-gradient-info" role="button"
-                                aria-pressed="true">
-                                Export</a>
+
+                    <div class="d-flex flex-wrap justify-content-between align-items-center pt-3 ps-2">
+                        <!-- Left group -->
+                        <div class="d-flex flex-wrap align-items-center w-100 w-sm-auto">
+                            <!-- Export -->
+                            <div class="p-2 pe-sm-4 flex-grow-1 pb-3">
+                                <a href="{{ route('qa.users.export.excel') }}" class="btn bg-gradient-info w-100 w-sm-auto"
+                                    role="button" aria-pressed="true">
+                                    Export
+                                </a>
+                            </div>
+
+                            <!-- Import -->
+                            <form action="{{ route('qa.users.import.excel') }}" method="post"
+                                class="d-flex flex-wrap justify-content-center align-items-center w-100 w-sm-auto"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <div class="p-2">
+                                    <input type="file" name="excel_file" class="btn btn-sm bg-gradient-secondary">
+                                </div>
+                                <div class="p-2">
+                                    <input type="submit" value="Import Excel Sheet" class="btn bg-gradient-info">
+                                </div>
+                            </form>
                         </div>
-                        <form action="{{ route('qa.users.import.excel') }}" method="post" class="d-flex"
-                            enctype="multipart/form-data">
-                            @csrf
-                            <div class="align-self-center p-2 pt-4">
-                                <input type="file" name="excel_file" class="btn btn-sm bg-gradient-secondary">
-                            </div>
-                            <div class="pe-3 pt-4">
-                                <input type="submit" value="Import Excel Sheet" class="btn bg-gradient-info">
-                            </div>
-                        </form>
-                        <div class="ms-auto p-2 pe-3 pt-4">
-                            <a href="{{ route('qa.users.usersform') }}" class="btn bg-gradient-info" role="button"
-                                aria-pressed="true">+
-                                Add New</a>
+
+                        <!-- Right button -->
+                        <div class="p-2 pe-3 ms-sm-auto w-100 w-sm-auto">
+                            <a href="{{ route('qa.users.usersform') }}" class="btn bg-gradient-info w-100 w-sm-auto"
+                                role="button" aria-pressed="true">
+                                + Add New
+                            </a>
                         </div>
                     </div>
+
 
                     @if (session('status'))
                         <div class="px-3">

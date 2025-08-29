@@ -17,33 +17,38 @@
         <div class="row">
             <div class="col-12">
 
-                <div class="d-flex justify-content-center">
-                    <!-- Option-->
-                    <div class="dropdown p-2">
-                        <a class="btn btn-outline-secondary btn-sm" role="button" id="dropdownMenuButton"
+
+                <div class="d-flex flex-wrap justify-content-center">
+                    <!-- Option -->
+                    <div class="p-2 w-100 w-sm-auto">
+                        <a class="btn btn-outline-secondary btn-sm w-100 w-sm-auto" role="button"
                             href="{{ route('manager.doc-control.change.view') }}">
-                            Change Request</a>
+                            Change Request
+                        </a>
                     </div>
 
-                    <!-- Option-->
-                    <div class="dropdown p-2">
-                        <a class="btn bg-gradient-primary btn-sm" role="button" id="dropdownMenuButton"
+                    <!-- Option -->
+                    <div class="p-2 w-100 w-sm-auto">
+                        <a class="btn bg-gradient-primary btn-sm w-100 w-sm-auto" role="button"
                             href="{{ route('manager.doc-control.issue.view') }}">
-                            Number Issuance</a>
+                            Number Issuance
+                        </a>
                     </div>
 
-                    <!--  Option-->
-                    <div class="dropdown p-2">
-                        <a class="btn btn-outline-secondary btn-sm" role="button" id="dropdownMenuButton"
+                    <!-- Option -->
+                    <div class="p-2 w-100 w-sm-auto">
+                        <a class="btn btn-outline-secondary btn-sm w-100 w-sm-auto" role="button"
                             href="{{ route('manager.doc-control.obsolescence.view') }}">
-                            Obsolescence</a>
+                            Obsolescence
+                        </a>
                     </div>
 
-                    <!--  Option-->
-                    <div class="dropdown p-2">
-                        <a class="btn btn-outline-secondary btn-sm" role="button" id="dropdownMenuButton"
+                    <!-- Option -->
+                    <div class="p-2 w-100 w-sm-auto">
+                        <a class="btn btn-outline-secondary btn-sm w-100 w-sm-auto" role="button"
                             href="{{ route('manager.doc-control.mi-internal.view') }}">
-                            M.I Internal</a>
+                            M.I Internal
+                        </a>
                     </div>
                 </div>
 
@@ -194,8 +199,7 @@
                                                                             </h6>
                                                                             <button type="button"
                                                                                 class="btn-close text-dark"
-                                                                                data-bs-dismiss="modal"
-                                                                                aria-label="Close">
+                                                                                data-bs-dismiss="modal" aria-label="Close">
                                                                                 <span aria-hidden="true">×</span>
                                                                             </button>
                                                                         </div>

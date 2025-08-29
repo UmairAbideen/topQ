@@ -17,14 +17,16 @@
         <div class="row">
             <div class="col-12">
 
-                <div class="d-flex justify-content-center">
-                    <!-- Option-->
-                    <div class="dropdown p-2">
-                        <a class="btn bg-gradient-primary btn-sm" role="button" id="dropdownMenuButton"
+
+
+                <div class="d-flex flex-wrap justify-content-center">
+                    <!-- Option -->
+                    <div class="dropdown p-2 w-100 w-sm-auto">
+                        <a class="btn bg-gradient-primary btn-sm w-100 w-sm-auto" role="button" id="dropdownMenuButton1"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Change Request <i class="bi bi-caret-down-fill"></i>
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                             <li><a class="dropdown-item bg-light" href="{{ route('qa.doc-control.change.view') }}">Quality
                                     Assurance</a></li>
                             <li><a class="dropdown-item" href="{{ route('qa.ts.doc-control.change.view') }}">Technical
@@ -34,15 +36,15 @@
                         </ul>
                     </div>
 
-                    <!-- Option-->
-                    <div class="dropdown p-2">
-                        <a class="btn btn-outline-secondary btn-sm" role="button" id="dropdownMenuButton"
+                    <!-- Option -->
+                    <div class="dropdown p-2 w-100 w-sm-auto">
+                        <a class="btn btn-outline-secondary btn-sm w-100 w-sm-auto" role="button" id="dropdownMenuButton2"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Number Issuance <i class="bi bi-caret-down-fill"></i>
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item bg-light" href="{{ route('qa.doc-control.issue.view') }}">Quality
-                                    Assuarance</a></li>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                            <li><a class="dropdown-item" href="{{ route('qa.doc-control.issue.view') }}">Quality
+                                    Assurance</a></li>
                             <li><a class="dropdown-item" href="{{ route('qa.ts.doc-control.issue.view') }}">Technical
                                     Service</a></li>
                             <li><a class="dropdown-item" href="{{ route('qa.sc.doc-control.issue.view') }}">Supply Chain</a>
@@ -50,15 +52,15 @@
                         </ul>
                     </div>
 
-                    <!--  Option-->
-                    <div class="dropdown p-2">
-                        <a class="btn btn-outline-secondary btn-sm" role="button" id="dropdownMenuButton"
+                    <!-- Option -->
+                    <div class="dropdown p-2 w-100 w-sm-auto">
+                        <a class="btn btn-outline-secondary btn-sm w-100 w-sm-auto" role="button" id="dropdownMenuButton3"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Obsolescence <i class="bi bi-caret-down-fill"></i>
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item bg-light"
-                                    href="{{ route('qa.doc-control.obsolescence.view') }}">Quality Assuarance</a></li>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+                            <li><a class="dropdown-item"
+                                    href="{{ route('qa.doc-control.obsolescence.view') }}">Quality Assurance</a></li>
                             <li><a class="dropdown-item" href="{{ route('qa.ts.doc-control.obsolescence.view') }}">Technical
                                     Service</a></li>
                             <li><a class="dropdown-item" href="{{ route('qa.sc.doc-control.obsolescence.view') }}">Supply
@@ -66,15 +68,15 @@
                         </ul>
                     </div>
 
-                    <!--  Option-->
-                    <div class="dropdown p-2">
-                        <a class="btn btn-outline-secondary btn-sm" role="button" id="dropdownMenuButton"
+                    <!-- Option -->
+                    <div class="dropdown p-2 w-100 w-sm-auto">
+                        <a class="btn btn-outline-secondary btn-sm w-100 w-sm-auto" role="button" id="dropdownMenuButton4"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             M.I Internal <i class="bi bi-caret-down-fill"></i>
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item bg-light"
-                                    href="{{ route('qa.doc-control.mi-internal.view') }}">Quality Assuarance</a></li>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
+                            <li><a class="dropdown-item"
+                                    href="{{ route('qa.doc-control.mi-internal.view') }}">Quality Assurance</a></li>
                             <li><a class="dropdown-item" href="{{ route('qa.ts.doc-control.mi-internal.view') }}">Technical
                                     Service</a></li>
                             <li><a class="dropdown-item" href="{{ route('qa.sc.doc-control.mi-internal.view') }}">Supply
@@ -83,15 +85,15 @@
                     </div>
                 </div>
 
+
+
+
                 <div class="card my-4">
                     <div class="card-header p-0 position-relative mt-n4 mx-3 my-0 z-index-2">
                         <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                             <h6 class="text-white text-capitalize ps-3">Document Change Request Table</h6>
                         </div>
                     </div>
-
-
-
 
                     <div class="d-flex justify-content-end pe-3 pt-4">
                         <a href="{{ route('qa.doc-control.change.form') }}" class="btn bg-gradient-info" role="button"
